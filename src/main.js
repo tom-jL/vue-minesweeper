@@ -1,4 +1,15 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { faRotateLeft } from '@fortawesome/free-solid-svg-icons'
+
+dom.watch();
+library.add(faRotateLeft);
+
+const app = createApp(App);
+
+app.component('FontAwesomeIcon', FontAwesomeIcon)
+
+app.mount('#app')
