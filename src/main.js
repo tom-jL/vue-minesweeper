@@ -8,6 +8,8 @@ import { faRotateLeft } from '@fortawesome/free-solid-svg-icons'
 dom.watch();
 library.add(faRotateLeft);
 
+import './assets/index.css' //tailwind postcss
+
 const app = createApp(App);
 
 app.component('FontAwesomeIcon', FontAwesomeIcon)
