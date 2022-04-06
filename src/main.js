@@ -9,6 +9,7 @@ dom.watch();
 library.add(faRotateLeft);
 
 import './assets/index.css' //tailwind postcss
+import 'flowbite';
 
 const app = createApp(App);
 
