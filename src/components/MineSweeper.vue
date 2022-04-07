@@ -1,12 +1,13 @@
 <template>
-  <div class="flex flex-col items-center h-[100vh] overflow-hidden">
-    <div class="self-center h-[10vh] p-4 pb-0">
+  <div class="flex flex-col items-center h-[100vh] bg-blue-300">
+    <div class="self-center h-[10vh] pb-0">
     </div>
-    <div :class="gridColumns" class="w-[calc(90vh/1.5)] gap-0 p-4">
+    <div :class="gridColumns" class="h-[90vh] w-[calc(90vh/1.5)] gap-[2px] p-4">
       <MineCell 
         v-for="(number, index) in minefield.flatField"
         :key="index"
         :index="index"
+        @click="reveal"
       />
     </div>
   </div>
@@ -28,9 +29,15 @@ export default {
       return `grid grid-cols-${colLength}`;
     }
   },
+  methods: {
+    reveal () {
+      
+    }
+  },
   mounted() {
     // this.minefield.newField();
   }
+
 }
 </script>
 <style scoped>

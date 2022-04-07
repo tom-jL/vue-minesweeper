@@ -1,6 +1,10 @@
 <template >
-  <div class="select-none aspect-square flex justify-center items-center border-2 border-gray-500">
-    <span class="text-black ">{{ number }}</span>
+  <div @click="reveal" 
+  :class="textColor"
+  class="select-none aspect-square flex justify-center items-center shadow-2xl rounded-[2px] bg-blue-50 text-[5vmin]">
+    <span v-if="revealed && number != '*'" 
+    class="leading-none">{{ number }}</span>
+    <FontAwesomeIcon v-if="revealed && number == '*'" icon="bomb"></FontAwesomeIcon>
   </div>
 </template>
 <script>
@@ -11,6 +15,19 @@ export default {
     const minefield = useMinefield();
     return { minefield }
   },
+  data() {
+    return {
+      revealed: false,
+      colors: [
+        'text-gray-500',
+        'text-blue-500',
+        'text-green-500',
+        'text-red-500',
+        'text-blue-900',
+        'text-purple-500'
+      ]
+    }
+  },
   props: {
     index: {
       type: Number,
@@ -20,6 +37,15 @@ export default {
   computed: {
     number() {
       return this.minefield.flatField[this.index];
+    },
+    textColor() {
+      if(this.number=='*') return 'text-black';
+      return this.colors[this.number];
+    }
+  },
+  methods :{
+    reveal () {
+      this.revealed = true
     }
   }
 

@@ -4,10 +4,10 @@ import { createPinia } from 'pinia'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { faRotateLeft, faFlag, faBomb } from '@fortawesome/free-solid-svg-icons'
 
 dom.watch();
-library.add(faRotateLeft);
+library.add(faRotateLeft, faFlag, faBomb);
 
 import './assets/index.css' //tailwind postcss
 import 'flowbite';
