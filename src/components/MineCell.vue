@@ -1,7 +1,7 @@
 <template >
   <div @click="reveal" 
-  :class="textColor"
-  class="select-none aspect-square flex justify-center items-center shadow-2xl rounded-[2px] bg-blue-50 text-[5vmin]">
+  :class="[textColor, revealed ? 'shadow-inner' : 'border-[1px]']"
+  class="select-none aspect-square flex justify-center items-center  shadow-blue-600 border-blue-300 bg-blue-50 text-[5vmin]">
     <span v-if="revealed && number != '*'" 
     class="leading-none">{{ number }}</span>
     <FontAwesomeIcon v-if="revealed && number == '*'" icon="bomb"></FontAwesomeIcon>
@@ -45,7 +45,15 @@ export default {
   },
   methods :{
     reveal () {
-      this.revealed = true
+      if(this.number == 0) {
+        this.$emit('revealBlock');
+        return;
+      }
+      if(this.number == '*') { 
+        this.$emit('gameover');
+        return;
+      }
+      this.revealed = true;
     }
   }
 
