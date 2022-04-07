@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
 
-export const minefield = defineStore('minefield', {
+export default defineStore('minefield', {
   state: () => ({
     /* @type {number[][]} */
     field: [],
@@ -24,14 +24,14 @@ export const minefield = defineStore('minefield', {
      * @param {number} level 
      */
     newField(level = 0) {
-      let field = new Array(this.levels[level]*1.5).fill(new Array(this.levels[level]));
-      let mines = (field.length * field[0].length)/8;
+      let field = Array.from({length:this.levels[level]*1.5}, () => (new Array(this.levels[level])).fill(null));
+      let mines = Math.floor((field.length * field[0].length)/8);
       while(mines) {
         let row = Math.floor((Math.random()*field.length));
         let col = Math.floor((Math.random()*field[0].length));
         if(field[row][col] == null){
           field[row][col] = "*";
-          --mines;
+          mines--;
         }
       }
       for(let row =0; row<field.length; row++){
