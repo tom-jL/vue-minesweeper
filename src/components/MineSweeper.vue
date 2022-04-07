@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center h-[100vh] bg-blue-300">
     <div class="self-center h-[10vh] pb-0">
     </div>
-    <div :class="gridColumns" class="h-[88vh] w-[calc(90vh/1.5)] gap-[0px] p-4">
+    <div :class="gridColumns" class="h-[88vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl">
       <MineCell 
         v-for="(number, index) in minefield.flatField"
         :key="index"
