@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col items-center h-[100vh] bg-blue-300">
-    <div class="self-center h-[10vh] pb-0">
+    <div class="self-center h-[8vh] pb-0">
     </div>
-    <div :class="gridColumns" class="h-[88vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
+    <div :class="gridColumns" class="h-[90vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
       <MineCell 
         v-for="(cell, index) in minefield.flatField"
         :key="index"

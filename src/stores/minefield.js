@@ -93,7 +93,7 @@ export default defineStore('minefield', {
     revealBlock(row, col) {
       if(col === undefined){
         col = row % this.field[0].length;
-        row = parseInt(row / this.field.length);
+        row = parseInt(row / this.field[0].length);
       }
       for(let x=-1;x<2;x++){
         for(let y=-1;y<2;y++){
