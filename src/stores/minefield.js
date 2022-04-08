@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
 
-class Mine {
+class Cell {
 
   constructor(mine = '*') {
     this.mine = mine;
@@ -48,14 +48,14 @@ export default defineStore('minefield', {
         let row = Math.floor((Math.random()*field.length));
         let col = Math.floor((Math.random()*field[0].length));
         if(field[row][col] == null){
-          field[row][col] = new Mine();
+          field[row][col] = new Cell();
           mines--;
         }
       }
       for(let row =0; row<field.length; row++){
         for(let col = 0; col<field[0].length; col++) {
           if (field[row][col] == null) {
-            field[row][col] = new Mine(this.getBlock(row, col, field).filter(x => x).filter(x=>x.mine == '*').length);
+            field[row][col] = new Cell(this.getBlock(row, col, field).filter(x => x).filter(x=>x.mine == '*').length);
           }
         }
       }
@@ -72,15 +72,39 @@ export default defineStore('minefield', {
       let block = [];
       for(let x=-1;x<2;x++){
         for(let y=-1;y<2;y++){
-          try{
-            if(!(x==0 && y==0)){
-              block.push(field[row+x][col+y]);
-            }
-          // eslint-disable-next-line no-empty
-          } catch(err){}
+          if(!(x==0 && y==0) && field[row+x]?.[col+y] !== undefined){
+            block.push(field[row+x][col+y]);
+          }
         }
       }
       return block;
+    },
+    /**
+     * Reveals all cells;
+     */
+    revealAll() {
+      this.flatField.forEach((cell) => {
+        cell.reveal();
+      });
+    },
+    /**
+     * Reveals all cells surrounding a 0 cell recursively.
+     */
+    revealBlock(row, col) {
+      if(col === undefined){
+        col = row % this.field[0].length;
+        row = parseInt(row / this.field.length);
+      }
+      for(let x=-1;x<2;x++){
+        for(let y=-1;y<2;y++){
+          if(this.field[row+x]?.[col+y] !== undefined ){
+            if(this.field[row+x][col+y].mine === 0 && !(x == 0 && y == 0) && !this.field[row+x][col+y].revealed) {
+                this.revealBlock(row + x, col + y);
+            }
+            this.field[row+x][col+y].reveal();
+          }
+        }
+      }
     }
   }
 });

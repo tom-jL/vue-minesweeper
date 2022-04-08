@@ -35,7 +35,6 @@ export default {
   },
   computed: {
     cell() {
-      console.log(this.minefield.flatField[this.index])
       return this.minefield.flatField[this.index];
     },
     mine() {
@@ -52,9 +51,11 @@ export default {
   methods :{
     reveal () {
       if(this.mine == 0) {
+        this.minefield.revealBlock(this.index);
         return;
       }
-      if(this.mine == '*') { 
+      if(this.mine == '*') {
+        this.minefield.revealAll(); 
         this.$emit('gameOver');
         return;
       }
