@@ -1,10 +1,10 @@
 <template >
   <div @click="reveal" 
-  :class="[textColor, revealed ? 'shadow-inner' : 'border-[1px]']"
+  :class="[textColor, revealed ? 'shadow-inner' : 'border-[1px] shadow-md']"
   class="select-none aspect-square flex justify-center items-center  shadow-blue-600 border-blue-300 bg-blue-50 text-[5vmin]">
-    <span v-if="revealed && number != '*'" 
-    class="leading-none">{{ number }}</span>
-    <FontAwesomeIcon v-if="revealed && number == '*'" icon="bomb"></FontAwesomeIcon>
+    <span v-if="revealed && mine != '*'" 
+    class="leading-none">{{ mine }}</span>
+    <FontAwesomeIcon v-if="revealed && mine == '*'" icon="bomb"></FontAwesomeIcon>
   </div>
 </template>
 <script>
@@ -17,7 +17,6 @@ export default {
   },
   data() {
     return {
-      revealed: false,
       colors: [
         'text-gray-500',
         'text-blue-500',
@@ -35,25 +34,34 @@ export default {
     }
   },
   computed: {
-    number() {
+    cell() {
+      console.log(this.minefield.flatField[this.index])
       return this.minefield.flatField[this.index];
     },
+    mine() {
+      return this.cell.mine;
+    },
+    revealed() {
+      return this.cell.revealed;
+    },
     textColor() {
-      if(this.number=='*') return 'text-black';
-      return this.colors[this.number];
+      if(this.mine =='*') return 'text-black';
+      return this.colors[this.mine];
     }
   },
   methods :{
     reveal () {
-      if(this.number == 0) {
-        this.$emit('revealBlock');
+      if(this.mine == 0) {
         return;
       }
-      if(this.number == '*') { 
-        this.$emit('gameover');
+      if(this.mine == '*') { 
+        this.$emit('gameOver');
         return;
       }
-      this.revealed = true;
+      this.cell.reveal();
+    },
+    flag () {
+      this.cell.flag();
     }
   }
 

@@ -1,9 +1,27 @@
 import { defineStore } from 'pinia'
 import cloneDeep from 'lodash/cloneDeep'
 
+class Mine {
+
+  constructor(mine = '*') {
+    this.mine = mine;
+    this.revealed = false;
+    this.flagged = false;
+  }
+
+  reveal() {
+    this.revealed = true;
+  }
+
+  flag() {
+    this.flagged = true;
+  }
+
+}
+
 export default defineStore('minefield', {
   state: () => ({
-    /* @type {number[][]} */
+    /* @type {Object[][]} */
     field: [],
     /* @type {number[]} */
     levels: [8,16,32],
@@ -12,7 +30,7 @@ export default defineStore('minefield', {
     /**
      * Returns a flattened (1D) field.
      * 
-     * @returns {number[]}
+     * @returns {Object[]}
      */
     flatField(state) {
       return state.field.flat()
@@ -30,14 +48,14 @@ export default defineStore('minefield', {
         let row = Math.floor((Math.random()*field.length));
         let col = Math.floor((Math.random()*field[0].length));
         if(field[row][col] == null){
-          field[row][col] = "*";
+          field[row][col] = new Mine();
           mines--;
         }
       }
       for(let row =0; row<field.length; row++){
         for(let col = 0; col<field[0].length; col++) {
-          if (field[row][col] !== "*") {
-            field[row][col] = this.getBlock(row, col, field).filter(x => x === "*").length;
+          if (field[row][col] == null) {
+            field[row][col] = new Mine(this.getBlock(row, col, field).filter(x => x).filter(x=>x.mine == '*').length);
           }
         }
       }
@@ -48,7 +66,7 @@ export default defineStore('minefield', {
      * @param {number} row
      * @param {number} col 
      * @param {number[][]} field
-     * @returns {number[]}
+     * @returns {Object[]}
      */
     getBlock(row, col, field) {
       let block = [];

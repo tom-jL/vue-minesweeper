@@ -2,12 +2,12 @@
   <div class="flex flex-col items-center h-[100vh] bg-blue-300">
     <div class="self-center h-[10vh] pb-0">
     </div>
-    <div :class="gridColumns" class="h-[88vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl">
+    <div :class="gridColumns" class="h-[88vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
       <MineCell 
-        v-for="(number, index) in minefield.flatField"
+        v-for="(cell, index) in minefield.flatField"
         :key="index"
         :index="index"
-        @click="reveal"
+        @gameOver="onGameOver"
       />
     </div>
   </div>
@@ -30,13 +30,10 @@ export default {
     }
   },
   methods: {
-    reveal () {
+    onGameOver () {
       
     }
   },
-  mounted() {
-    // this.minefield.newField();
-  }
 
 }
 </script>
