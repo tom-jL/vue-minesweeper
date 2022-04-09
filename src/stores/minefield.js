@@ -11,10 +11,11 @@ class Cell {
 
   reveal() {
     this.revealed = true;
+    this.flagged = false;
   }
 
   flag() {
-    this.flagged = true;
+    this.flagged = !this.flagged;
   }
 
 }

@@ -1,7 +1,7 @@
 <template >
-  <div @mouseup="reveal" 
-  :class="[textColor, revealed ? 'z-0' : 'z-10 cell-shadow border-b-[1px] border-l-[1px]']"
-  class="select-none aspect-square overflow-hidden flex justify-center items-center border-blue-300 shadow-blue-500 bg-blue-50 text-[5vmin]">
+  <div @mousedown.left="flag" @mouseup.left="reveal" 
+  :class="[textColor, revealed ? 'z-0' : 'z-10 cell-shadow']"
+  class="select-none aspect-square overflow-hidden flex justify-center items-center shadow-blue-500 bg-blue-50">
     <div v-if="revealed && mine != '*'" 
     class="leading-none">{{ mine }}</div>
     <FontAwesomeIcon v-if="revealed && mine == '*'" icon="bomb"></FontAwesomeIcon>
@@ -27,6 +27,8 @@ export default {
         'text-blue-900',
         'text-purple-500'
       ],
+      flagging: setTimeout(0),
+      wasFlagged: false
     }
   },
   props: {
@@ -49,13 +51,21 @@ export default {
       return this.cell.revealed;
     },
     textColor() {
+      if(this.flagged) return this.colors[3];
       if(this.mine =='*') return 'text-black';
       return this.colors[this.mine];
     },
   },
   methods :{
     reveal () {
-      if(this.revealed || this.flagged){ return }
+      clearTimeout(this.flagging);
+      if(this.revealed || this.flagged){ 
+        return;
+      }
+      if(this.wasFlagged) {
+        this.wasFlagged = false;
+        return;
+      }
       if(this.mine == 0) {
         this.minefield.revealBlock(this.index);
         return;
@@ -68,7 +78,11 @@ export default {
       this.cell.reveal();
     },
     flag () {
-      this.cell.flag();
+      if(this.revealed) return;
+      this.flagging = setTimeout(()=>{
+        this.wasFlagged = true;
+        this.cell.flag()
+        }, 600);
     }
   }
 
@@ -78,6 +92,6 @@ export default {
 
 <style scoped>
   .cell-shadow {
-    box-shadow: 2px 2px 6px 0px #3f83f8;
+    box-shadow: 3px 3px 9px 0px #3f83f8;
   }
 </style>
