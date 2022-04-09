@@ -1,6 +1,6 @@
 <template>
   <Transition name="toast">
-    <div v-if="show" class="flex toast-mask transition-all  justify-center items-center">
+    <div v-if="show" class="flex toast-mask transition-all justify-center items-center">
       <div class="toast-wrapper">
         <div class="flex items-center w-full max-w-xs p-4 space-x-4 bg-white divide-x divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800" role="alert">
           <FontAwesomeIcon class="w-5 h-5 dark:text-blue-500" :icon="icon"></FontAwesomeIcon>
@@ -35,14 +35,13 @@ export default {
 
 <style scoped>
   .toast-mask {
-    position: fixed;
+    position: absolute;
     z-index: 9998;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    transition: opacity 0.3s ease;
   }
 
   .toast-enter-from {

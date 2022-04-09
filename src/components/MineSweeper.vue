@@ -3,7 +3,7 @@
     <div class="flex justify-center items-center h-[8vh]">
       <MineButton :toggle="tripped" @press="newGame"/>
     </div>
-    <div :class="gridColumns" class="h-[90vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
+    <div id="grid" :class="gridColumns" class="relative h-[90vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
       <MineCell 
         v-for="(cell, index) in minefield.flatField"
         :key="index"
@@ -11,7 +11,7 @@
       />
     </div>
   </div>
-  <Teleport to="body">
+  <Teleport to="#grid">
     <MineToast 
       :show="showClear" @close="showClear = false"
       message="You swept all the mines!"
@@ -19,7 +19,7 @@
       class="text-yellow-300"
       />
   </Teleport>
-  <Teleport to="body">
+  <Teleport to="#grid">
     <MineToast 
       :show="showTrip" @close="showTrip = false"
       message="You tripped on a mine!"
@@ -73,7 +73,8 @@ export default {
   },
   methods: {
     newGame () {
-      if(this.showToast) return;
+      this.showTrip = false;
+      this.showClear = false;
       this.minefield.newField();
     },
   },
