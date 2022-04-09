@@ -8,7 +8,6 @@
         v-for="(cell, index) in minefield.flatField"
         :key="index"
         :index="index"
-        @gameOver="onGameOver"
       />
     </div>
   </div>

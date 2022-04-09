@@ -65,7 +65,7 @@ export default {
   },
   methods :{
     reveal () {
-      if(this.minefield.tripped) {
+      if(this.minefield.tripped || this.minefield.cleared) {
         return;
       }
       this.clicked = false;
@@ -88,7 +88,7 @@ export default {
       this.cell.reveal();
     },
     flag () {
-      if(this.minefield.tripped) {
+      if(this.minefield.tripped || this.minefield.cleared) {
         return;
       }
       this.clicked = true;
