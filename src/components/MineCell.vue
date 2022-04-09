@@ -6,7 +6,6 @@
     class="leading-none">{{ mine }}</div>
     <FontAwesomeIcon v-if="revealed && mine == '*'" icon="bomb"></FontAwesomeIcon>
     <FontAwesomeIcon v-if="!revealed && flagged" icon="flag"></FontAwesomeIcon>
-    
   </div>
 </template>
 <script>
