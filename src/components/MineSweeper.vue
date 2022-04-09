@@ -13,7 +13,7 @@
   </div>
   <Teleport to="#grid">
     <MineToast 
-      :show="showClear" @close="showClear = false"
+      :show="showClear"
       message="You swept all the mines!"
       icon="trophy"
       class="text-yellow-300"
@@ -21,7 +21,7 @@
   </Teleport>
   <Teleport to="#grid">
     <MineToast 
-      :show="showTrip" @close="showTrip = false"
+      :show="showTrip"
       message="You tripped on a mine!"
       icon="explosion"
       class="text-red-500"
@@ -63,12 +63,20 @@ export default {
     cleared(clear){
       if(clear) {
         this.showClear = true;
+        setTimeout(()=>{
+        this.showClear = false;
+      }, 2000);
       }
+
     },
     tripped(tripped) {
       if(tripped) {
         this.showTrip = true;
+        setTimeout(()=>{
+        this.showTrip = false;
+      }, 2000);
       }
+
     }
   },
   methods: {
