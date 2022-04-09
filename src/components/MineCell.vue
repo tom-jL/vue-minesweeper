@@ -1,6 +1,6 @@
 <template >
-  <div @click="reveal" 
-  :class="[textColor, revealed ? 'z-0' : 'z-10 shadow-md border-b-[1px] border-l-[1px]']"
+  <div @mouseup="reveal" 
+  :class="[textColor, revealed ? 'z-0' : 'z-10 cell-shadow border-b-[1px] border-l-[1px]']"
   class="select-none aspect-square overflow-hidden flex justify-center items-center border-blue-300 shadow-blue-500 bg-blue-50 text-[5vmin]">
     <div v-if="revealed && mine != '*'" 
     class="leading-none">{{ mine }}</div>
@@ -77,5 +77,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .cell-shadow {
+    box-shadow: 2px 2px 6px 0px #3f83f8;
+  }
 </style>
