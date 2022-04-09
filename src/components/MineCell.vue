@@ -65,6 +65,9 @@ export default {
   },
   methods :{
     reveal () {
+      if(this.minefield.tripped) {
+        return;
+      }
       this.clicked = false;
       clearTimeout(this.flagging);
       if(this.revealed || this.flagged){ 
@@ -80,12 +83,14 @@ export default {
       }
       if(this.mine == '*') {
         this.minefield.revealAll(); 
-        this.$emit('gameOver');
         return;
       }
       this.cell.reveal();
     },
     flag () {
+      if(this.minefield.tripped) {
+        return;
+      }
       this.clicked = true;
       if(this.revealed) return;
       this.flagging = setTimeout(()=>{

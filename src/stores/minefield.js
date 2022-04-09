@@ -26,6 +26,8 @@ export default defineStore('minefield', {
     field: [],
     /* @type {number[]} */
     levels: [8,16,32],
+    /* @type Boolean */
+    tripped: false,
   }),
   getters: {
     /**
@@ -35,6 +37,9 @@ export default defineStore('minefield', {
      */
     flatField(state) {
       return state.field.flat()
+    },
+    cleared(state) {
+      return state.field.flat().filter((x)=>!x.revealed).length == state.field.flat().filter((x)=>x.mine=='*').length;
     },
   },
   actions: {
@@ -60,6 +65,7 @@ export default defineStore('minefield', {
           }
         }
       }
+      this.tripped = false;
       this.field = cloneDeep(field);
     },
     /**
@@ -84,6 +90,7 @@ export default defineStore('minefield', {
      * Reveals all cells;
      */
     revealAll() {
+      this.tripped = true;
       this.flatField.forEach((cell) => {
         cell.reveal();
       });

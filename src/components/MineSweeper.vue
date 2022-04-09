@@ -1,17 +1,7 @@
 <template>
   <div class="flex flex-col items-center h-[100vh] bg-blue-300 text-[5vmin]">
     <div class="flex justify-center items-center h-[8vh]">
-      <div 
-        @mousedown.left="()=>{iconClicked=true}" 
-        @mouseup.left="newGame" 
-        :class="[iconClicked ? 'shadow-inner' : 'drop-shadow']" 
-        class="flex aspect-square h-[80%] bg-blue-400 rounded-md justify-center items-center text-white">
-        <FontAwesomeIcon
-          :class="[iconClicked ? 'translate-y-[-1px]' : '']" 
-          class="bg-blend-normal" 
-          :icon="dead ? deadIcon : aliveIcon">
-        </FontAwesomeIcon>
-      </div>
+      <MineButton :toggle="dead" @press="newGame"/>
     </div>
     <div :class="gridColumns" class="h-[90vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
       <MineCell 
@@ -26,9 +16,10 @@
 <script>
 import useMinefield from '@/stores/minefield';
 import MineCell from '@/components/MineCell.vue'
+import MineButton from '@/components/MineButton.vue'
 export default {
   name: "MineSweeper",
-  components: { MineCell },
+  components: { MineCell, MineButton },
   setup() {
     const minefield = useMinefield();
     minefield.newField();
@@ -36,18 +27,6 @@ export default {
   },
   data() {
     return {
-      deadIcons: [
-        'face-dizzy', 
-        'skull-crossbones',  
-        'skull'
-      ],
-      aliveIcons: [
-        'face-smile',
-        'face-laugh-beam',
-        'face-laugh-squint'
-      ],
-      dead: false,
-      iconClicked: false,
     }
   },
   computed: {
@@ -55,22 +34,17 @@ export default {
       let colLength = this.minefield.field[0]?.length;
       return `grid grid-cols-${colLength}`;
     },
-    deadIcon() {
-      return this.deadIcons[Math.floor((Math.random()*this.deadIcons.length))];
+    gameWon() {
+      return this.minefield.cleared;
     },
-    aliveIcon() {
-      return this.aliveIcons[Math.floor((Math.random()*this.aliveIcons.length))];
-    }
+    dead() {
+      return this.minefield.tripped;
+    },
   },
   methods: {
-    onGameOver () {
-      this.dead = true;
-    },
     newGame () {
-      this.iconClicked = false;
       this.minefield.newField();
-      this.dead = false;
-    },    
+    },
   },
 
 }
