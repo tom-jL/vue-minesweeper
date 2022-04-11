@@ -43,7 +43,10 @@ export default {
   },
   watch: {
     trippedOrCleared(bool){
-      if(bool) { 
+      if(bool) {
+        if(this.minefield.cleared) {
+          this.$emit('cleared', this.time);
+        }
         this.time = 0;
         clearInterval(this.timer);
       } else {

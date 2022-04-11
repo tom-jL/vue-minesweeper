@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col h-[100vh] bg-blue-300 text-[5vmin]">
     <div class="flex h-[8vh] w-[calc(90vh/1.5)] self-center justify-between">
-      <MineScores class="place-self-center" />
+      <MineScores :scores="scores" class="place-self-center" />
       <MineButton class="self-center ml-auto" :toggle="tripped" @press="newGame"/>
-      <MineTimer class="self-center ml-auto" />
+      <MineTimer @cleared="onCleared" class="self-center ml-auto" />
     </div>
     <div id="grid" :class="gridColumns" class="place-self-center relative h-[90vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
       <MineCell 
@@ -49,6 +49,12 @@ export default {
     return {
       showTrip: false,
       showClear: false,
+      scores: [],
+    }
+  },
+  mounted() {
+    if(localStorage.scores !== undefined){
+      this.scores = JSON.parse(localStorage.scores);
     }
   },
   computed: {
@@ -68,10 +74,9 @@ export default {
       if(clear) {
         this.showClear = true;
         setTimeout(()=>{
-        this.showClear = false;
-      }, 2000);
+          this.showClear = false;
+        }, 2000);
       }
-
     },
     tripped(tripped) {
       if(tripped) {
@@ -89,6 +94,10 @@ export default {
       this.showClear = false;
       this.minefield.newField();
     },
+    onCleared (time) {
+      this.scores.push(time)
+      localStorage.scores = JSON.stringify(this.scores);
+    }
   },
 
 }
