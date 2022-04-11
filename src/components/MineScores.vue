@@ -10,11 +10,11 @@
     :class="showScores ? 'visible' : 'hidden'" 
     class=" w-100% bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
         <ul class="py-1 mt-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-          <li v-if="scores.length == 0" class="flex p-1">
+          <li v-if="scores.length == 0" class="flex pl-4 py-2">
             <span class="">No minefields cleared!</span>
           </li>
-          <li v-for="(score, index) in scores" :key="index" class="flex p-1">
-            <span class=""><FontAwesomeIcon icon="star"></FontAwesomeIcon></span>
+          <li v-for="(score, index) in scoresSorted" :key="index" class="flex pl-4 py-2">
+            <span :class="rankingColor[index]" class="w-4"><FontAwesomeIcon v-if="index<3" icon="trophy"></FontAwesomeIcon></span>
             <span class="m-auto">{{ minutes(score) }}:{{ seconds(score) }}</span>
           </li>
         </ul>
@@ -32,7 +32,17 @@ export default {
   },
   data() {
     return {
-      showScores: false
+      showScores: false,
+      rankingColor: [
+        'text-yellow-300',
+        'text-slate-400',
+        'text-amber-800'
+      ]
+    }
+  },
+  computed: {
+    scoresSorted() {
+      return (new Int32Array(this.scores)).sort();
     }
   },
   methods: {
