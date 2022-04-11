@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-[100vh] bg-blue-300 text-[5vmin]">
     <div class="flex h-[8vh] w-[calc(90vh/1.5)] self-center justify-between">
-      <MineTimer class="place-self-center invisible" />
+      <MineScores class="place-self-center" />
       <MineButton class="self-center ml-auto" :toggle="tripped" @press="newGame"/>
       <MineTimer class="self-center ml-auto" />
     </div>
@@ -36,9 +36,10 @@ import MineCell from '@/components/MineCell.vue'
 import MineButton from '@/components/MineButton.vue'
 import MineToast from '@/components/MineToast.vue'
 import MineTimer from '@/components/MineTimer.vue'
+import MineScores from '@/components/MineScores.vue'
 export default {
   name: "MineSweeper",
-  components: { MineCell, MineButton, MineToast, MineTimer },
+  components: { MineCell, MineButton, MineToast, MineTimer, MineScores },
   setup() {
     const minefield = useMinefield();
     minefield.newField();

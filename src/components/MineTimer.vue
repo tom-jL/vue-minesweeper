@@ -1,6 +1,9 @@
 <template>
-  <div class="flex aspect-[2/1] h-[80%] bg-blue-400 rounded-md justify-center items-center select-none text-white">
+  <div class="flex aspect-[2/1] h-[80%] shadow-inner bg-blue-400 rounded-md items-center select-none text-[3vh] text-white justify-evenly">
     <!-- {{ now }} -->
+    <FontAwesomeIcon
+      icon="stopwatch">
+    </FontAwesomeIcon>
     {{ minutes }}:{{ seconds }}
   </div>
 </template>
