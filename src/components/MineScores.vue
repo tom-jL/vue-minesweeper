@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     scoresSorted() {
-      return (new Int32Array(this.scores)).sort();
+      return (new Int32Array(this.scores)).sort().slice(0,3);
     }
   },
   methods: {
