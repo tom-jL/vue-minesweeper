@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col h-[100vh] bg-blue-300 text-[5vmin]">
-    <div class="flex h-[8vh] w-[calc(90vh/1.5)] self-center justify-between">
-      <MineScores :scores="scores" class="place-self-center" />
-      <MineButton class="self-center ml-auto" :toggle="tripped" @press="newGame"/>
-      <MineTimer @cleared="onCleared" class="self-center ml-auto" />
+  <div class="flex flex-col text-[5vmin]">
+    <div class="flex my-2 justify-evenly place-items-stretch">
+      <MineScores :scores="scores" class="" />
+      <MineButton class="" :toggle="tripped" @press="newGame"/>
+      <MineTimer @cleared="onCleared" class="" />
     </div>
-    <div id="grid" :class="gridColumns" class="place-self-center relative h-[90vh] w-[calc(90vh/1.5)] gap-[0px] bg-white shadow-xl shadow-blue-300">
+    <div id="grid" :class="gridColumns" class="mx-auto relative gap-[0px] bg-white shadow-xl shadow-blue-300">
       <MineCell 
         v-for="(cell, index) in minefield.flatField"
         :key="index"
@@ -60,6 +60,7 @@ export default {
   computed: {
     gridColumns() {
       let colLength = this.minefield.field[0]?.length;
+      // let rowLength = this.minefield.field.length;
       return `grid grid-cols-${colLength}`;
     },
     cleared() {

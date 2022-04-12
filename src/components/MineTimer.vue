@@ -1,7 +1,8 @@
 <template>
-  <div class="flex aspect-[2/1] h-[80%] shadow-inner bg-blue-400 rounded-md items-center select-none text-[3vh] text-white justify-evenly">
+  <div class="flex aspect-[2/1] shadow-inner bg-blue-400 rounded-md items-center select-none text-[3vh] text-white justify-evenly p-1">
     <!-- {{ now }} -->
     <FontAwesomeIcon
+      class="mr-1"
       icon="stopwatch">
     </FontAwesomeIcon>
     {{ minutes }}:{{ seconds }}

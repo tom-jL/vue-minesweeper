@@ -1,7 +1,7 @@
 <template >
   <div @mousedown.left="flag" @mouseup.left="reveal" 
   :class="[textColor, revealed ? 'z-0' : 'z-10', shadow]"
-  class="select-none aspect-square overflow-hidden flex justify-center items-center shadow-blue-500 bg-blue-50">
+  class="w-[7vmax] md:w-[5vmax] select-none aspect-square overflow-hidden flex justify-center items-center shadow-blue-500 bg-blue-50">
     <div v-if="revealed && mine != '*'" 
     class="leading-none">{{ mine }}</div>
     <FontAwesomeIcon v-if="revealed && mine == '*'" icon="bomb"></FontAwesomeIcon>
@@ -60,7 +60,7 @@ export default {
         return this.clicked ? 'z-0' : 'cell-shadow';
       }
       return '';
-    }
+    },
   },
   methods :{
     reveal () {
