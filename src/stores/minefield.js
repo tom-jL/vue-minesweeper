@@ -28,6 +28,8 @@ export default defineStore('minefield', {
     levels: [8,16,32],
     /* @type Boolean */
     tripped: false,
+    /* @type number */
+    colLength: 12,
   }),
   getters: {
     /**
@@ -48,7 +50,7 @@ export default defineStore('minefield', {
      * @param {number} level 
      */
     newField(level = 0) {
-      let field = Array.from({length:this.levels[level]*1.5}, () => (new Array(this.levels[level])).fill(null));
+      let field = Array.from({length:this.colLength}, () => (new Array(this.levels[level])).fill(null));
       let mines = Math.floor((field.length * field[0].length)/8);
       while(mines) {
         let row = Math.floor((Math.random()*field.length));

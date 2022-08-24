@@ -3,7 +3,7 @@
     @mousedown.left="press" 
     @mouseup.left="unpress" 
     :class="[pressed ? 'shadow-inner' : 'shadow-xl']" 
-    class="flex aspect-square bg-blue-400 rounded-md justify-center items-center text-white p-1">
+    class="flex aspect-square w-[7vmin] min-w-10 bg-blue-400 rounded-md justify-center items-center text-white p-1">
     <FontAwesomeIcon
       :class="[pressed ? 'translate-y-[-1px]' : '']" 
       class="bg-blend-normal" 

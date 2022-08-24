@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col text-[5vmin]">
-    <div class="flex my-2 justify-evenly place-items-stretch">
-      <MineScores :scores="scores" class="" />
-      <MineButton class="" :toggle="tripped" @press="newGame"/>
-      <MineTimer @cleared="onCleared" class="" />
-    </div>
-    <div id="grid" :class="gridColumns" class="mx-auto relative gap-[0px] bg-white shadow-xl shadow-blue-300">
+    <div id="grid" :class="gridColumn" class="max-h-[90vmin] mx-auto mt-[10vmin] relative gap-[0px] bg-white shadow-xl shadow-blue-300">
+      <div class="absolute flex w-full z-[100] my-2 justify-between place-items-stretch bottom-[100%]">
+        <MineScores :scores="scores" class="" />
+        <MineButton class="" :toggle="tripped" @press="newGame"/>
+        <MineTimer @cleared="onCleared" class="" />
+      </div>
       <MineCell 
         v-for="(cell, index) in minefield.flatField"
         :key="index"
@@ -50,6 +50,11 @@ export default {
       showTrip: false,
       showClear: false,
       scores: [],
+      gridColumns: {
+        8: 'grid-cols-8',
+        16: 'grid-cols-16',
+        32: 'grid-cols-32',
+      },
     }
   },
   mounted() {
@@ -58,10 +63,10 @@ export default {
     }
   },
   computed: {
-    gridColumns() {
-      let colLength = this.minefield.field[0]?.length;
-      // let rowLength = this.minefield.field.length;
-      return `grid grid-cols-${colLength}`;
+    gridColumn() {
+      let rowLength = this.minefield.field[0]?.length;
+      // let colLength = this.minefield.field.length;
+      return `grid ${this.gridColumns[rowLength]}`;
     },
     cleared() {
       return this.minefield.cleared;

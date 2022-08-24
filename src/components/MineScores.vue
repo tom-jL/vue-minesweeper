@@ -1,5 +1,5 @@
 <template>
-    <div @mouseenter="toggle" @mouseleave="toggle" class="flex aspect-[2/1] z-20 shadow-xl bg-blue-400 rounded-md items-center select-none text-white justify-evenly py-1 px-4 relative">
+  <div @mouseenter="toggle" @mouseleave="toggle" class="flex aspect-[2/1] z-20 shadow-xl bg-blue-400 rounded-md items-center select-none text-white justify-evenly py-1 px-4 relative">
       <FontAwesomeIcon
         icon="ranking-star">
       </FontAwesomeIcon>
